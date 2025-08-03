@@ -1,0 +1,21 @@
+name: Publish to dev.to
+
+on:
+  push:
+    branches:
+      - main   # or your default branch name
+
+jobs:
+  publish-to-devto:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Publish markdown posts to dev.to
+        uses: sinedied/publish-devto@v2
+        with:
+          devto_key: ${{ secrets.DEVTO_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: '_posts/**/*.md'   # adjust path to your markdown posts
+          branch: main
