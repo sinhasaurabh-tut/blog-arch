@@ -1,0 +1,8 @@
+# _config.yml
+title: Architectural Alchemy
+description: Welcome to Architectural Alchemy, where the art of technical design meets engineering.
+author: Saurabh Sinha
+email:
+theme: beautiful-jekyll
+  jekyll update
+date: '2025-08-04T16:20:00Z'
