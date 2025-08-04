@@ -12,10 +12,40 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Publish markdown posts to dev.to
-        uses: sinedied/publish-devto@v2
-        with:
-          devto_key: ${{ secrets.DEVTO_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: '_posts/**/*.md'   # adjust path to your markdown posts
-          branch: main
+      - name: Publish markdown post to Dev.to via API
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: |
+          # Adjust this path to your markdown post(s)
+          MARKDOWN_FILE="blog_arch/_posts/cloud/cloud-migration/2025-08-03-why-cloud.md"
+
+          if [ ! -f "$MARKDOWN_FILE" ]; then
+            echo "Markdown file not found at $MARKDOWN_FILE"
+            exit 1
+          fi
+
+          # Escape double quotes in markdown content to embed in JSON
+          MARKDOWN_CONTENT=$(sed ':a;N;$!ba;s/"/\\"/g' "$MARKDOWN_FILE")
+
+          POST_TITLE="Cloud Migration"
+
+          # Create JSON payload with embedded markdown
+          PAYLOAD=$(jq -n --arg title "$POST_TITLE" --arg body "$MARKDOWN_CONTENT" --argjson published true --argjson tags '["jekyll","update","cloud"]' \
+          '{article: {title: $title, body_markdown: $body, published: $published, tags: $tags}}')
+
+          # Call Dev.to API to publish the post
+          response=$(curl -s -w "%{http_code}" -o response.txt -X POST https://dev.to/api/articles \
+            -H "Content-Type: application/json" \
+            -H "api-key: $DEVTO_API_KEY" \
+            -d "$PAYLOAD")
+
+          http_code="${response: -3}"
+
+          if [[ "$http_code" == "201" ]]; then
+            echo "Post published successfully to Dev.to."
+            cat response.txt
+          else
+            echo "Failed to publish post to Dev.to. HTTP code: $http_code"
+            cat response.txt
+            exit 1
+          fi
