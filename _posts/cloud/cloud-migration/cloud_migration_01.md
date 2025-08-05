@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Cloud Migration: Benefits, Strategies, and the 7Rs Framework
+title: Cloud Migration - Benefits, Strategies, and the 7Rs Framework
 categories: beautiful-jekyll
 published: true
 tags: cloud, aws, gcp, migration
