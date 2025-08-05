@@ -16,6 +16,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set origin remote URL to GitHub
+        run: git remote set-url origin git@github.com:sinhasaurabh-tut/blog-arch.git
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
@@ -25,8 +28,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          hashnode_host: "sinhasaurabh.hashnode.dev"   # Replace with your actual Hashnode blog URL hostname
-          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}   # Add this token to your repo secrets (detailed below)
+          hashnode_host: "sinhasaurabh.hashnode.dev"   # Your Hashnode blog host
+          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}  # Your Hashnode token secret
           added_files: ${{ steps.changed-files.outputs.added_files }}
           modified_files: ${{ steps.changed-files.outputs.modified_files }}
           deleted_files: ${{ steps.changed-files.outputs.deleted_files }}
