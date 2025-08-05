@@ -1,0 +1,32 @@
+name: Publish to Hashnode
+
+on:
+  push:
+    branches:
+      - main   # or your default branch name
+
+jobs:
+  publish-to-hashnode:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+
+      - name: Publish markdown posts to Hashnode
+        uses: iammarmirza/hashnode-github-sync@v1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          hashnode_host: "sinhasaurabh.hashnode.dev"   # Replace with your actual Hashnode blog URL hostname
+          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}   # Add this token to your repo secrets (detailed below)
+          added_files: ${{ steps.changed-files.outputs.added_files }}
+          modified_files: ${{ steps.changed-files.outputs.modified_files }}
+          deleted_files: ${{ steps.changed-files.outputs.deleted_files }}
