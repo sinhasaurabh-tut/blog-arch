@@ -1,0 +1,29 @@
+name: Deploy Feature to Test Domain and Publish to Dev.to
+
+on:
+  push:
+    branches:
+      - feature/**   # Adjust this pattern based on your naming
+
+jobs:
+  deploy-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy to Test Domain
+        run: |
+          echo "Deploying to test domain..."
+          # Insert your deployment commands here
+          # Example: ./deploy-to-test.sh or kubectl apply ...
+
+      - name: Publish markdown posts to Dev.to
+        uses: sinedied/publish-devto@v2
+        with:
+          devto_key: ${{ secrets.DEVTO_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: '_posts/**/*.md'   # Adjust your markdown post path here
+          # Use the actual branch name triggering the workflow
+          branch: ${{ github.ref_name }}
