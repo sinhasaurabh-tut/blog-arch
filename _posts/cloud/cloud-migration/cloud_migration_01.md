@@ -1,10 +1,9 @@
 ---
 layout: post
-title: Cloud Migration
+title: Cloud Migration: Benefits, Strategies, and the 7Rs Framework
 categories: beautiful-jekyll
-id: 2749980
 published: true
-tags: 'cloud, aws, gcp, migration'
+tags: cloud, aws, gcp, migration
 ---
 ## Important Reasons Why Cloud Migration is Essential
 
