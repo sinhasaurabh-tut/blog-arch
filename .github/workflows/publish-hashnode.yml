@@ -3,7 +3,7 @@ name: Publish to Hashnode
 on:
   push:
     branches:
-      - main   # or your default branch name
+      - main   # Replace with your default branch if different
 
 jobs:
   publish-to-hashnode:
@@ -12,24 +12,34 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set origin remote URL to GitHub
+      - name: Set origin remote URL to GitHub (avoid SSH alias issues)
         run: git remote set-url origin git@github.com:sinhasaurabh-tut/blog-arch.git
 
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
 
+      - name: Debug - List changed files
+        run: |
+          echo "Added files: ${{ steps.changed-files.outputs.added_files }}"
+          echo "Modified files: ${{ steps.changed-files.outputs.modified_files }}"
+          echo "Deleted files: ${{ steps.changed-files.outputs.deleted_files }}"
+
+      - name: Debug - List repository files for verification
+        run: ls -R
+
       - name: Publish markdown posts to Hashnode
         uses: iammarmirza/hashnode-github-sync@v1.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          hashnode_host: "sinhasaurabh.hashnode.dev"   # Your Hashnode blog host
-          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}  # Your Hashnode token secret
+          hashnode_host: "sinhasaurabh.hashnode.dev"       # Replace with your Hashnode blog hostname
+          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}    # Your secret token in GitHub repository secrets
           added_files: ${{ steps.changed-files.outputs.added_files }}
           modified_files: ${{ steps.changed-files.outputs.modified_files }}
           deleted_files: ${{ steps.changed-files.outputs.deleted_files }}
