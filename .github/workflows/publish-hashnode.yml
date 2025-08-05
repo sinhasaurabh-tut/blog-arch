@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           hashnode_host: "sinhasaurabh.hashnode.dev"       # Replace with your Hashnode blog hostname
-          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}    # Your secret token in GitHub repository secrets
+          hashnode_token: ${{ secrets.HASHNODE_TOKEN }}    # Your Hashnode token secret in GitHub repo secrets
           added_files: ${{ steps.changed-files.outputs.added_files }}
           modified_files: ${{ steps.changed-files.outputs.modified_files }}
           deleted_files: ${{ steps.changed-files.outputs.deleted_files }}
