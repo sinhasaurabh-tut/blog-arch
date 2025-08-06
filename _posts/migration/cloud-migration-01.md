@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Cloud Migration - Benefits, Strategies, and the 7Rs Framework
-slug: migration
+slug: cloud-migration-01
 categories: beautiful-jekyll
 published: true
 tags:
