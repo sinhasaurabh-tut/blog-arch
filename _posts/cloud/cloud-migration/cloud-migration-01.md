@@ -14,7 +14,7 @@ tags:
 
 Cloud migration is essential for lowering costs, increasing agility, enhancing security, improving reliability, and enabling access to cutting-edge technology. Organizations migrate to the cloud to future proof their IT, drive innovation, and remain competitive in a rapidly changing digital landscape.
 
-Organizations choose cloud migration—moving their applications, data, and infrastructure from on-premises environments to cloud platforms—for several compelling reasons.
+Organizations choose cloud migration—moving their applications, data, and infrastructure from on-premises environments to cloud platforms for several compelling reasons.
 
 Below are the core motivations, supported by real-world benefits:
 
